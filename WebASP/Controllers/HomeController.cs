@@ -20,7 +20,7 @@ namespace WebASP.Controllers
         }
 
         public IActionResult Index()
-        {
+        {                                                                               
             return View();
         }
 
@@ -56,6 +56,11 @@ namespace WebASP.Controllers
                 }
                 
             }
+            return View();
+        }
+        
+        public IActionResult SingleProduct()
+        {
             return View();
         }
     }
