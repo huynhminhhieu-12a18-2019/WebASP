@@ -24,7 +24,7 @@ namespace WebASP.Models
         public string Anh { get; set; }
         public string SDT { get; set; }
         public int LoaiTKId { get; set; }
-        [DisplayName("Loại tài khoản ID")]
+        [DisplayName("Loại tài khoản")]
         public LoaiTK LoaiTK { get; set; }
         [DisplayName("Trạng thái")]
         public bool TrangThai { get; set; }

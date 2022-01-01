@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Tất cả loại sản phẩm</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Thêm mới loại sản phẩm</a>
 </p>
 <table class="table">
     <thead>
@@ -26,9 +26,9 @@
                 @Html.DisplayFor(modelItem => item.TenLoai)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.LoaiSPId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.LoaiSPId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.LoaiSPId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.LoaiSPId">Sửa</a> |
+                <a asp-action="Details" asp-route-id="@item.LoaiSPId">Chi tiết</a> |
+                <a asp-action="Delete" asp-route-id="@item.LoaiSPId">Xóa</a>
             </td>
         </tr>
 }

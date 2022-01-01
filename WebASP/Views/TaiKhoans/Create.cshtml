@@ -5,9 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Create</h1>
-
-<h4>TaiKhoan</h4>
+<h1>Thêm mới tài khoản</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -54,8 +52,8 @@
                 <span asp-validation-for="SDT" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LoaiTKId" class="control-label"></label>
-                <select asp-for="LoaiTKId" class ="form-control" asp-items="ViewBag.LoaiTKId"></select>
+                <label asp-for="LoaiTK" class="control-label"></label>
+                <select asp-for="LoaiTK" class ="form-control" asp-items="ViewBag.LoaiTKId"></select>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
@@ -63,13 +61,13 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Thêm" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Trở về</a>
 </div>
 

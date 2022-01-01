@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Thông tin chi tiết sản phẩm</h1>
 
 <div>
-    <h4>SanPham</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -62,6 +61,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.SanPhamId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.SanPhamId">Sửa</a> |
+    <a asp-action="Index">Trở về</a>
 </div>

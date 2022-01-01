@@ -48,7 +48,7 @@ namespace WebASP.Controllers
         // GET: TaiKhoans/Create
         public IActionResult Create()
         {
-            ViewData["LoaiTKId"] = new SelectList(_context.LoaiTKs, "LoaiTKId", "LoaiTKId");
+            ViewData["LoaiTKId"] = new SelectList(_context.LoaiTKs, "LoaiTKId", "TenLoai");
             return View();
         }
 

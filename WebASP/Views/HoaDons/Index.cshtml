@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Tất cả hóa đơn</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Thêm mới hóa đơn</a>
 </p>
 <table class="table">
     <thead>
@@ -50,7 +50,7 @@
                 @Html.DisplayFor(modelItem => item.MAHD)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TaiKhoan.TaiKhoanId)
+                @Html.DisplayFor(modelItem => item.TaiKhoan.HoTen)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NgayLap)
@@ -74,9 +74,9 @@
                 @Html.DisplayFor(modelItem => item.TrangThai)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.HoaDonId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.HoaDonId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.HoaDonId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.HoaDonId">Sửa</a> |
+                <a asp-action="Details" asp-route-id="@item.HoaDonId">Chi tiết</a> |
+                <a asp-action="Delete" asp-route-id="@item.HoaDonId">Xóa</a>
             </td>
         </tr>
 }

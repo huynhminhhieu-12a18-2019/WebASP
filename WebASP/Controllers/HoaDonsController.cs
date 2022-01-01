@@ -48,7 +48,7 @@ namespace WebASP.Controllers
         // GET: HoaDons/Create
         public IActionResult Create()
         {
-            ViewData["TaiKhoanId"] = new SelectList(_context.Set<TaiKhoan>(), "TaiKhoanId", "TaiKhoanId");
+            ViewData["TaiKhoanId"] = new SelectList(_context.Set<TaiKhoan>(), "TaiKhoanId", "HoTen");
             return View();
         }
 

@@ -5,9 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Create</h1>
-
-<h4>HoaDon</h4>
+<h1>Thêm mới hóa đơn</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,8 +17,8 @@
                 <span asp-validation-for="MAHD" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TaiKhoanId" class="control-label"></label>
-                <select asp-for="TaiKhoanId" class ="form-control" asp-items="ViewBag.TaiKhoanId"></select>
+                <label asp-for="TaiKhoan" class="control-label"></label>
+                <select asp-for="TaiKhoan" class ="form-control" asp-items="ViewBag.TaiKhoanId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="NgayLap" class="control-label"></label>
@@ -58,16 +56,13 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Thêm" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Trở về</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

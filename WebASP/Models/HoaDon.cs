@@ -12,7 +12,7 @@ namespace WebASP.Models
         [DisplayName("Mã hóa đơn")]
         public string MAHD { get; set; }
         public int TaiKhoanId { get; set; }
-        [DisplayName("Tài khoản ID")]
+        [DisplayName("Tên người mua")]
         public TaiKhoan TaiKhoan { get; set; }
         [DisplayName("Ngày lập")]
         public DateTime NgayLap { get; set; }
