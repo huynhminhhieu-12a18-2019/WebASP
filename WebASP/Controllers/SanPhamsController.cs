@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +15,12 @@ namespace WebASP.Controllers
     public class SanPhamsController : Controller
     {
         private readonly WebASPContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public SanPhamsController(WebASPContext context)
+        public SanPhamsController(WebASPContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: SanPhams
@@ -48,7 +52,7 @@ namespace WebASP.Controllers
         // GET: SanPhams/Create
         public IActionResult Create()
         {
-            ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "LoaiSPId");
+            ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "TenLoai");
             return View();
         }
 
@@ -57,12 +61,27 @@ namespace WebASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SanPhamId,MASP,TenSP,LoaiSPId,DonGia,Anh,SL,MoTa,Trangthai")] SanPham sanPham)
+        public async Task<IActionResult> Create([Bind("SanPhamId,MASP,TenSP,LoaiSPId,DonGia,Anh,AnhFile,SL,MoTa,Trangthai")] SanPham sanPham)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(sanPham);
                 await _context.SaveChangesAsync();
+                if (sanPham.AnhFile != null)
+                {
+                    var filename = sanPham.SanPhamId.ToString() + Path.GetExtension(sanPham.AnhFile.FileName);
+                    var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "sanpham");
+                    var filePath = Path.Combine(uploadPath, filename);
+                    using(FileStream fs = System.IO.File.Create(filePath))
+                    {
+                        sanPham.AnhFile.CopyTo(fs);
+                        fs.Flush();
+                    }
+                    sanPham.Anh = filename;
+                    _context.Update(sanPham);
+                    await _context.SaveChangesAsync();
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "LoaiSPId", sanPham.LoaiSPId);
@@ -78,6 +97,7 @@ namespace WebASP.Controllers
             }
 
             var sanPham = await _context.SanPhams.FindAsync(id);
+
             if (sanPham == null)
             {
                 return NotFound();
@@ -91,7 +111,7 @@ namespace WebASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SanPhamId,MASP,TenSP,LoaiSPId,DonGia,Anh,SL,MoTa,Trangthai")] SanPham sanPham)
+        public async Task<IActionResult> Edit(int id, [Bind("SanPhamId,MASP,TenSP,LoaiSPId,DonGia,Anh,AnhFile,SL,MoTa,Trangthai")] SanPham sanPham)
         {
             if (id != sanPham.SanPhamId)
             {
@@ -102,8 +122,25 @@ namespace WebASP.Controllers
             {
                 try
                 {
+                    sanPham.Anh = (from sp in _context.SanPhams
+                                   where sp.SanPhamId == sanPham.SanPhamId
+                                   select sp.Anh).FirstOrDefault();
                     _context.Update(sanPham);
                     await _context.SaveChangesAsync();
+                    if (sanPham.AnhFile != null)
+                    {
+                        var filename = sanPham.SanPhamId.ToString() + Path.GetExtension(sanPham.AnhFile.FileName);
+                        var uploadPath = Path.Combine(_webHostEnvironment.WebRootPath, "img", "sanpham");
+                        var filePath = Path.Combine(uploadPath, filename);
+                        using (FileStream fs = System.IO.File.Create(filePath))
+                        {
+                            sanPham.AnhFile.CopyTo(fs);
+                            fs.Flush();
+                        }
+                        sanPham.Anh = filename;
+                        _context.Update(sanPham);
+                        await _context.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {

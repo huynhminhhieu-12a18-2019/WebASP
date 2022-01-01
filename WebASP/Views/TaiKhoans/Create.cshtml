@@ -9,7 +9,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Ten" class="control-label"></label>
@@ -42,8 +42,8 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Anh" class="control-label"></label>
-                <input asp-for="Anh" class="form-control" />
+                <label asp-for="AnhFile" class="control-label"></label>
+                <input asp-for="AnhFile" class="form-control" />
                 <span asp-validation-for="Anh" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -52,8 +52,8 @@
                 <span asp-validation-for="SDT" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LoaiTK" class="control-label"></label>
-                <select asp-for="LoaiTK" class ="form-control" asp-items="ViewBag.LoaiTKId"></select>
+                <label asp-for="LoaiTKId" class="control-label"></label>
+                <select asp-for="LoaiTKId" class ="form-control" asp-items="ViewBag.LoaiTKId"></select>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">

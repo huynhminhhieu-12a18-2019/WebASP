@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,7 +24,11 @@ namespace WebASP.Models
         public string Email { get; set; }
         [DisplayName("Ảnh")]
         public string Anh { get; set; }
+        [DisplayName("Ảnh")]
+        [NotMapped]
+        public IFormFile AnhFile { get; set; }
         public string SDT { get; set; }
+        [DisplayName("Loại tài khoản")]
         public int LoaiTKId { get; set; }
         [DisplayName("Loại tài khoản")]
         public LoaiTK LoaiTK { get; set; }
