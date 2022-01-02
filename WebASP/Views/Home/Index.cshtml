@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<WebASP.Models.SanPham>
+@{
     ViewData["Title"] = "Trang chủ";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
@@ -19,7 +20,7 @@
 
             </li>
         </ul>
-    </div>  
+    </div>
 </div>  @*End slider area*@
 
 <div class="promo-area">
@@ -59,103 +60,33 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="latest-product">
                     <h2 class="section-title">All Products</h2>
-
-                    <div class="product-carousel">
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="~/users/img/sp1.jpg" alt="">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div style="height: 400px; " class="col-md-3">
+                        <div style="width: 200px; margin-bottom:20px" class="single-product">
+                            <div style="height: 265px;" class="product-f-image">
+                                <img style="width:200px" src="~/img/sanpham/@Html.DisplayFor(modelItem => item.Anh)" alt="">
                                 <div class="product-hover">
                                     <a href="~/users/#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    <a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                 </div>
                             </div>
 
-                            <h2><a asp-controller="Home" asp-action="SingleProduct">Laptop ASUS Vivobook Flip 14 TP470EA EC027T</a></h2>
+                            <h2><a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct"> @Html.DisplayFor(modelItem => item.TenSP)</a></h2>
 
                             <div class="product-carousel-price">
-                                <ins>$700.00</ins> <del>$100.00</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="~/users/img/sp3.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="~/users/#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
+                                <ins>@Html.DisplayFor(modelItem => item.DonGia) đ</ins> <del>@Html.DisplayFor(modelItem => item.DonGia)</del>
 
-                            <h2>Laptop ASUS Vivobook Flip 14 TP470EA EC027T</h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins> <del>$999.00</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="~/users/img/sp4.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="~/users/#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
+</div>
 
-                            <h2>Laptop ASUS Vivobook Flip 14 TP470EA EC027T</h2>
+</div>
 
-                            <div class="product-carousel-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="~/users/img/sp5.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="~/users/#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-
-                            <h2><a asp-controller="Home" asp-action="SingleProduct">Laptop ASUS Vivobook Flip 14 TP470EA EC027T</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$200.00</ins> <del>$225.00</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="~/users/img/sp1.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="~/users/#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-
-                            <h2>Laptop ASUS Vivobook Flip 14 TP470EA EC027T</h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$1200.00</ins> <del>$1355.00</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="~/users/img/sp4.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="~/users/#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                </div>
-                            </div>
-
-                            <h2><a asp-controller="Home" asp-action="SingleProduct">Laptop ASUS Vivobook Flip 14 TP470EA EC027T</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$400.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                
-                </div>
+</div>
+                }
             </div>
+                </div>
         </div>
     </div>
 </div>  @*End main content area*@
@@ -180,6 +111,7 @@
             </div>
         </div>
     </div>
-</div>-->  @*End brands area*@
+</div>-->
+@*End brands area*@
 
 

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<WebASP.Models.SanPham>
+@{
+    ViewData["Title"] = "Sản phẩm";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div style="height: 400px; "class="col-md-3">
+            <div style="width: 200px; margin-bottom:20px" class="single-product">
+                <div style="height: 265px;" class="product-f-image">
+                    <img style="width:200px" src="~/img/sanpham/@Html.DisplayFor(modelItem => item.Anh)" alt="">
+                    <div class="product-hover">
+                        <a href="~/users/#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                        <a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                    </div>
+                </div>
+
+                <h2><a asp-controller="Home" asp-action="SingleProduct"> @Html.DisplayFor(modelItem => item.TenSP)</a></h2>
+
+                <div class="product-carousel-price">
+                    <ins>@Html.DisplayFor(modelItem => item.DonGia)</ins> <del>$100.00</del>
+                </div>
+            </div>
+        </div>
+    }
+</div>

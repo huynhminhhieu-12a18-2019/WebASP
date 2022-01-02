@@ -28,9 +28,9 @@
                         <ul>
                             <li><a href="~/users/#"><i class="fa fa-user"></i> My Account</a></li>
                             <li><a href="~/users/#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="~/users/cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="~/users/checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="~/users/#"><i class="fa fa-user"></i> Login</a></li>
+                            <li><a asp-controller="Home" asp-action="Cart"><i class="fa fa-user"></i> My Cart</a></li>
+                            <li><a asp-controller="Home" asp-action="Logout"><i class="fa fa-user"></i> Logout</a></li>
+                            <li><a asp-controller="Home" asp-action="Login"><i class="fa fa-user"></i> Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="~/users/cart.html">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a asp-controller="Home" asp-action="Cart">Cart @*- <span class="cart-amunt">$100</span>*@ <i class="fa fa-shopping-cart"></i> <span class="product-count">2</span></a>
                     </div>
                 </div>
             </div>
@@ -93,14 +93,21 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                        @*<li><a href="~/users/shop.html">Shop page</a></li>*@
-                        <li><a asp-controller="Home" asp-action="SingleProduct">Single product</a></li>
-                        @*<li><a href="~/users/cart.html">Cart</a></li>
-                        <li><a href="~/users/checkout.html">Checkout</a></li>
-                        <li><a href="~/users/#">Category</a></li>
-                        <li><a href="~/users/#">Others</a></li>
-                        <li><a href="~/users/#">Contact</a></li>*@
+                        @if (@ViewData["Title"] == "Trang chủ")
+                        {
+                            <li class="active"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Sản phẩm</a></li>
+                        }
+                        @if (@ViewData["Title"] == "Sản phẩm")
+                        {
+                            <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                            <li class="active"><a asp-action="AllProducts" asp-controller="Home">Sản phẩm</a></li>
+                        }
+                        @if (@ViewData["Title"] == "Giỏ hàng")
+                        {
+                            <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Sản phẩm</a></li>
+                        }
                     </ul>
                 </div>
             </div>

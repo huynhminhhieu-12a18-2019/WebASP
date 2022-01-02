@@ -1,0 +1,48 @@
+.quantity-text{
+    margin-left: 10px;
+	width: 44px;
+	height: 44px;
+	line-height: 42px;
+	font-size: 14px;
+	font-weight: 700;
+	color: #4a4a4a;
+	display: inline-block;
+	text-align: center;
+	outline: none;
+	border: 1px solid #eee;
+}
+table tr th{
+    text-align: center;
+}
+table tr td{
+    text-align: center;
+}
+.textgiohang{
+    text-align:center;
+    font-size:35px;
+    font-weight:bold;
+}
+table tr{
+    border:1px solid rgb(211, 207, 207);
+}
+table tr td .imgproduct img{
+    width: 150px;
+    margin:13px;
+}
+table tr td .imgremove img{
+    width: 25px;
+}
+table tr td .textnote{
+    width:-webkit-fill-available;
+    margin: 23px; 
+    height:55px;
+}
+table tr td .nameproduct{
+    text-decoration: none;
+}
+form a{
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    background-color:#3a8bcd;
+    color:white;
+}

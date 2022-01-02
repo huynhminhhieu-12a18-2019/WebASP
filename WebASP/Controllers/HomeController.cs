@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,13 +21,14 @@ namespace WebASP.Controllers
         }
 
         public IActionResult Index()
-        {                                                                               
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
-            return View();
+            var sanphams = _context.SanPhams.Include(s => s.LoaiSP);
+            return View(sanphams);
+        }
+        public IActionResult AllProducts()
+        {
+            var sanphams = _context.SanPhams.Include(s => s.LoaiSP);
+            return View(sanphams);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -60,7 +62,14 @@ namespace WebASP.Controllers
             return View();
         }
         
-        public IActionResult SingleProduct()
+        public IActionResult SingleProduct(int id)
+        {
+            var sanPham = _context.SanPhams.Include(sp => sp.LoaiSP).Where(sp => sp.SanPhamId == id).FirstOrDefault();
+            List<SanPham> sanphams = _context.SanPhams.Where(sp => sp.LoaiSP.TenLoai == sanPham.LoaiSP.TenLoai).ToList();
+            ViewBag.sanphamtuongtu = sanphams;
+            return View(sanPham);
+        }
+        public IActionResult Cart()
         {
             return View();
         }

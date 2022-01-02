@@ -32,9 +32,6 @@
                 @Html.DisplayNameFor(model => model.SL)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MoTa)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Trangthai)
             </th>
             <th></th>
@@ -56,13 +53,10 @@
                 @Html.DisplayFor(modelItem => item.DonGia)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Anh)
+                <img style=" width: 50px;" src="~/img/sanpham/@Html.DisplayFor(modelItem => item.Anh)" alt="Alternate Text" /> 
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SL)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MoTa)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Trangthai)

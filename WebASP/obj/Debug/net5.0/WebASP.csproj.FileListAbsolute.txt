@@ -368,3 +368,5 @@ D:\DoAn_HK5_2021_2022\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\Shared\_LayoutU
 D:\DoAn_HK5_2021_2022\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\Home\Login.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\Shared\_LayoutLogin.cshtml.g.cs
 D:\DoAn_HK5_2021_2022\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\Home\SingleProduct.cshtml.g.cs
+D:\DoAn_HK5_2021_2022\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\Home\AllProducts.cshtml.g.cs
+D:\DoAn_HK5_2021_2022\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\Home\Cart.cshtml.g.cs

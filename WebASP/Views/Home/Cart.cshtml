@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Giỏ hàng";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link rel="stylesheet" href="~/users/cart/style.css" />
+<div>
+        <div class="textgiohang">Giỏ hàng</div>
+        <table border="1">
+            <tr>
+                <th style="width: 211px"> Sản phẩm </th>
+                <th style="width: 523px"> Tên sản phẩm </th>
+                <th style="width: 157px"> Số lượng </th>
+                <th style="width: 185px"> Giá tiền </th>
+                <th style="width: 180px"> Xoá </th>
+            </tr>
+            <tr>
+                <td><a class="imgproduct" href=""><img src="~/users/cart/images/sp.png" alt="" /></a></td>
+                <td><a class="nameproduct" href="">Laptop Gaming MSI Bravo 15 B5DD 027VN</a></td>
+                <td>
+                    </p><form>
+                        <input type="number" name="quantity" value="1" min="1" max="50">
+                    </form>
+                </td>
+                <td>20000000đ</td>
+                <td><a class="imgremove" href=""><img src="~/users/cart/~/users/cart/images/remove.png" alt="" /></a></td>
+            </tr>
+            <tr>
+                <td><a class="imgproduct" href=""><img src="~/users/cart/images/sp.png" alt="" /></a></td>
+                <td><a class="nameproduct" href="">Laptop Gaming MSI Bravo 15 B5DD 027VN</a></td>
+                <td>
+                    </p><form>
+                        <input type="number" name="quantity" value="1" min="1" max="50">
+                    </form>
+                </td>
+                <td>20000000đ</td>
+                <td><a class="imgremove" href=""><img src="~/users/cart/images/remove.png" alt="" /></a></td>
+            </tr>
+            <tr>
+                <td colspan="4">Tổng tiền</td>
+                <td>40000000đ</td>
+            </tr>
+            <tr>
+                <td colspan="5"><input class="textnote" type="text" placeholder="Ghi chú"></td>
+            </tr>
+        </table>
+        <form style="text-align:center;margin:20px" action="">
+            <button type="button" class="btn btn-primary">Thanh toán</button>
+            <button type="button" class="btn btn-primary">Cập nhật</button>
+        </form>
+</div>
