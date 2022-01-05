@@ -50,7 +50,7 @@ namespace WebASP.Controllers
         public IActionResult Create()
         {
             ViewData["SanPhamId"] = new SelectList(_context.SanPhams, "SanPhamId", "SanPhamId");
-            ViewData["TaiKhoanId"] = new SelectList(_context.Set<TaiKhoan>(), "TaiKhoanId", "TaiKhoanId");
+            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoans, "TaiKhoanId", "TaiKhoanId");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace WebASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GioHangId,TaiKhoanId,SanPhamId,SL,DonGia,TongTien")] GioHang gioHang)
+        public async Task<IActionResult> Create([Bind("GioHangId,TaiKhoanId,SanPhamId,SL,TongTien")] GioHang gioHang)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace WebASP.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["SanPhamId"] = new SelectList(_context.SanPhams, "SanPhamId", "SanPhamId", gioHang.SanPhamId);
-            ViewData["TaiKhoanId"] = new SelectList(_context.Set<TaiKhoan>(), "TaiKhoanId", "TaiKhoanId", gioHang.TaiKhoanId);
+            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoans, "TaiKhoanId", "TaiKhoanId", gioHang.TaiKhoanId);
             return View(gioHang);
         }
 
@@ -86,7 +86,7 @@ namespace WebASP.Controllers
                 return NotFound();
             }
             ViewData["SanPhamId"] = new SelectList(_context.SanPhams, "SanPhamId", "SanPhamId", gioHang.SanPhamId);
-            ViewData["TaiKhoanId"] = new SelectList(_context.Set<TaiKhoan>(), "TaiKhoanId", "TaiKhoanId", gioHang.TaiKhoanId);
+            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoans, "TaiKhoanId", "TaiKhoanId", gioHang.TaiKhoanId);
             return View(gioHang);
         }
 
@@ -95,7 +95,7 @@ namespace WebASP.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GioHangId,TaiKhoanId,SanPhamId,SL,DonGia,TongTien")] GioHang gioHang)
+        public async Task<IActionResult> Edit(int id, [Bind("GioHangId,TaiKhoanId,SanPhamId,SL,TongTien")] GioHang gioHang)
         {
             if (id != gioHang.GioHangId)
             {
@@ -123,7 +123,7 @@ namespace WebASP.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["SanPhamId"] = new SelectList(_context.SanPhams, "SanPhamId", "SanPhamId", gioHang.SanPhamId);
-            ViewData["TaiKhoanId"] = new SelectList(_context.Set<TaiKhoan>(), "TaiKhoanId", "TaiKhoanId", gioHang.TaiKhoanId);
+            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoans, "TaiKhoanId", "TaiKhoanId", gioHang.TaiKhoanId);
             return View(gioHang);
         }
 

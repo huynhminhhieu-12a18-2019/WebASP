@@ -17,8 +17,6 @@ namespace WebASP.Models
         public SanPham SanPham { get; set; }
         [DisplayName("Số lượng")]
         public int SL { get; set; }
-        [DisplayName("Đơn giá")]
-        public float DonGia { get; set; }
         [DisplayName("Tổng tiền")]
         public float TongTien { get; set; }
     }

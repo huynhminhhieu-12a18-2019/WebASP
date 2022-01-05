@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,6 +23,10 @@ namespace WebASP.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Request.Cookies.ContainsKey("HoTen"))
+            {
+                ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
+            }
             var sanphams = _context.SanPhams.Include(s => s.LoaiSP);
             return View(sanphams);
         }
@@ -43,25 +48,41 @@ namespace WebASP.Controllers
         [HttpPost]
         public IActionResult Login(string tk, string mk)
         {
-            int loaiTKID = (from taikhoan in _context.TaiKhoans
-                           where taikhoan.Ten == tk && taikhoan.MK == mk
-                           select taikhoan.LoaiTKId).FirstOrDefault();
-            if (loaiTKID!= 0)
+            TaiKhoan taikhoan = _context.TaiKhoans.Include(tkhoan=>tkhoan.LoaiTK).Where(tkhoan => tkhoan.Ten == tk && tkhoan.MK == mk).FirstOrDefault();
+            if (taikhoan != null)
             {
-                if (loaiTKID == 1)
+                CookieOptions cookieOptions = new CookieOptions()
                 {
-                    return RedirectToAction("Index", "Admins");
-                }
-                else
+                    Expires = DateTime.Now.AddDays(7)
+                };
+                HttpContext.Response.Cookies.Append("TaiKhoanId", taikhoan.TaiKhoanId.ToString(), cookieOptions);
+                HttpContext.Response.Cookies.Append("HoTen", taikhoan.HoTen.ToString(), cookieOptions);
+
+                //HttpContext.Session.SetInt32("TaiKhoanId", taikhoan.TaiKhoanId);
+                //HttpContext.Session.SetString("HoTen", taikhoan.HoTen.ToString());
+                if (taikhoan.LoaiTKId != 0)
                 {
-                    return RedirectToAction("Index", "Home");
+                    if (taikhoan.LoaiTKId == 1)
+                    {
+                        return RedirectToAction("Index", "Admins");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
-                
-            }
+            }    
             ViewBag.dangnhapthatbai = "Tài khoản hoặc mật khẩu không đúng";
             return View();
         }
-        
+        public IActionResult Logout()
+        {
+            HttpContext.Response.Cookies.Append("HoTen", "", new CookieOptions() { Expires = DateTime.Now.AddDays(-1) });
+            HttpContext.Response.Cookies.Append("TaiKhoanId", "", new CookieOptions() { Expires = DateTime.Now.AddDays(-1) });
+            //HttpContext.Session.Remove("HoTen");
+            //HttpContext.Session.Remove("TaiKhoanId");
+            return RedirectToAction("Login", "Home");
+        }
         public IActionResult SingleProduct(int id)
         {
             var sanPham = _context.SanPhams.Include(sp => sp.LoaiSP).Where(sp => sp.SanPhamId == id).FirstOrDefault();
@@ -71,7 +92,60 @@ namespace WebASP.Controllers
         }
         public IActionResult Cart()
         {
-            return View();
+            if (!HttpContext.Request.Cookies.ContainsKey("HoTen"))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
+            int taikhoanid = Convert.ToInt32(HttpContext.Request.Cookies["TaiKhoanId"]);
+            List<GioHang> giohang = _context.GioHangs.Include(gio=>gio.SanPham).Where(gio => gio.TaiKhoanId == taikhoanid).ToList();
+            float tongtien = 0;
+            foreach(var gio in giohang)
+            {
+                tongtien += gio.TongTien;
+            }
+            ViewBag.tongtien = tongtien;
+            ViewBag.slsp = giohang.Count();
+            return View(giohang);
+        }
+        public IActionResult Addcart(int id)
+        {
+            return Addcart(id,1);
+        }
+
+        [HttpPost]
+        public IActionResult Addcart(int sanphamId, int sl)
+        {
+            int taikhoanid = Convert.ToInt32(HttpContext.Request.Cookies["TaiKhoanId"]);
+            GioHang giohang = _context.GioHangs.Include(gio=>gio.SanPham).FirstOrDefault(gio => gio.TaiKhoanId == taikhoanid && gio.SanPhamId == sanphamId);
+            float tongtien = _context.SanPhams.Where(sp => sp.SanPhamId == sanphamId).Select(sp => sp.DonGia).FirstOrDefault();
+            if (giohang == null)
+            {
+                giohang = new GioHang();
+                giohang.TaiKhoanId = taikhoanid;
+                giohang.SanPhamId = sanphamId;
+                giohang.SL = sl;
+                giohang.TongTien = tongtien;
+                _context.GioHangs.Add(giohang);
+            }
+            else
+            {
+                giohang.SL += sl;
+                giohang.TongTien += sl * giohang.SanPham.DonGia;
+            }
+            _context.SaveChanges();
+            return RedirectToAction("Cart", "Home");
+        }
+        [HttpPost]
+        public IActionResult CapNhatSL(int id, int quantity)
+        {
+            int taikhoanid = Convert.ToInt32(HttpContext.Request.Cookies["TaiKhoanId"]);
+            GioHang giohang = _context.GioHangs.Include(gio => gio.SanPham).FirstOrDefault(gio => gio.TaiKhoanId == taikhoanid && gio.SanPhamId == id);
+            giohang.SL = quantity;
+            giohang.TongTien = quantity * giohang.SanPham.DonGia;
+            _context.SaveChanges();
+            return RedirectToAction("Cart", "Home");
         }
     }
 }

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"] </title>
-
+    <link href="~/admins/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <!-- Google Fonts -->
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
@@ -27,10 +27,18 @@
                     <div class="user-menu">
                         <ul>
                             <li><a href="~/users/#"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="~/users/#"><i class="fa fa-heart"></i> Wishlist</a></li>
+                            @*<li><a href="~/users/#"><i class="fa fa-heart"></i> Wishlist</a></li>*@
                             <li><a asp-controller="Home" asp-action="Cart"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a asp-controller="Home" asp-action="Logout"><i class="fa fa-user"></i> Logout</a></li>
-                            <li><a asp-controller="Home" asp-action="Login"><i class="fa fa-user"></i> Login</a></li>
+                            @if (@ViewData["TaiKhoan"] != null)
+                            {
+                                <li><a asp-controller="Home" asp-action="Logout"><i class="fa fa-user"></i> Logout</a></li>
+                            }
+                            else
+                            {
+                                <li><a asp-controller="Home" asp-action="Login"><i class="fa fa-user"></i> Login</a></li>
+                            }
+
+
                         </ul>
                     </div>
                 </div>
@@ -67,7 +75,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="logo">
-                        <h1><a href="~/users/./"><img src="~/users/img/logo.png"></a></h1>
+                        <h1><a asp-controller="Home" asp-action="Index"><img src="~/users/img/logo.png"></a></h1>
                     </div>
                 </div>
 
@@ -96,17 +104,20 @@
                         @if (@ViewData["Title"] == "Trang chủ")
                         {
                             <li class="active"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
-                            <li><a asp-action="AllProducts" asp-controller="Home">Sản phẩm</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
                         }
                         @if (@ViewData["Title"] == "Sản phẩm")
                         {
                             <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
-                            <li class="active"><a asp-action="AllProducts" asp-controller="Home">Sản phẩm</a></li>
+                            <li class="active"><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
                         }
                         @if (@ViewData["Title"] == "Giỏ hàng")
                         {
                             <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
-                            <li><a asp-action="AllProducts" asp-controller="Home">Sản phẩm</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
                         }
                     </ul>
                 </div>

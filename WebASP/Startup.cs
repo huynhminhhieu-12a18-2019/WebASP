@@ -26,8 +26,12 @@ namespace WebASP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDistributedMemoryCache();
-            services.AddControllersWithViews();
 
+            services.AddSession(ses =>
+            {
+                ses.IdleTimeout = new TimeSpan(7, 0, 0, 0);
+            });
+            services.AddControllersWithViews();
             services.AddDbContext<WebASPContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("WebASPContext")));
         }
@@ -56,7 +60,7 @@ namespace WebASP
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

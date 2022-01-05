@@ -1,10 +1,23 @@
-﻿@{
+﻿@model IEnumerable<WebASP.Models.GioHang>
+@{
     ViewData["Title"] = "Giỏ hàng";
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
+<script src="~/admins/vendor/jquery/jquery.min.js"></script>
+<script src="~/admins/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/admins/js/sb-admin-2.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="~/admins/vendor/jquery-easing/jquery.easing.min.js"></script>
 <link rel="stylesheet" href="~/users/cart/style.css" />
 <div>
-        <div class="textgiohang">Giỏ hàng</div>
+    <div class="textgiohang">Giỏ hàng</div>
+    @if (ViewBag.slsp == 0)
+    {
+        <span>Chưa có sản phẩm nào trong giỏ hàng</span>
+    }
+    else
+    {
         <table border="1">
             <tr>
                 <th style="width: 211px"> Sản phẩm </th>
@@ -13,38 +26,28 @@
                 <th style="width: 185px"> Giá tiền </th>
                 <th style="width: 180px"> Xoá </th>
             </tr>
-            <tr>
-                <td><a class="imgproduct" href=""><img src="~/users/cart/images/sp.png" alt="" /></a></td>
-                <td><a class="nameproduct" href="">Laptop Gaming MSI Bravo 15 B5DD 027VN</a></td>
-                <td>
-                    </p><form>
-                        <input type="number" name="quantity" value="1" min="1" max="50">
-                    </form>
-                </td>
-                <td>20000000đ</td>
-                <td><a class="imgremove" href=""><img src="~/users/cart/~/users/cart/images/remove.png" alt="" /></a></td>
-            </tr>
-            <tr>
-                <td><a class="imgproduct" href=""><img src="~/users/cart/images/sp.png" alt="" /></a></td>
-                <td><a class="nameproduct" href="">Laptop Gaming MSI Bravo 15 B5DD 027VN</a></td>
-                <td>
-                    </p><form>
-                        <input type="number" name="quantity" value="1" min="1" max="50">
-                    </form>
-                </td>
-                <td>20000000đ</td>
-                <td><a class="imgremove" href=""><img src="~/users/cart/images/remove.png" alt="" /></a></td>
-            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><a class="imgproduct" href=""><img src="~/img/sanpham/@item.SanPham.Anh" alt="" /></a></td>
+                    <td><a class="nameproduct" href="">@item.SanPham.TenSP</a></td>
+                    <td>
+                        <p></p><form asp-controller="Home" asp-action="CapNhatSL" asp-route-id="@item.SanPham.SanPhamId" method="post">
+                            <input type="number" name="quantity" value="@item.SL" min="1" max="50">
+                        </form>
+                    </td>
+                    <td>@item.SanPham.DonGia.ToString("#,##0") VND</td>
+                    <td><a class="imgremove" href=""><img src="~/users/cart/images/remove.png" alt="" /></a></td>
+                </tr>
+            }
             <tr>
                 <td colspan="4">Tổng tiền</td>
-                <td>40000000đ</td>
-            </tr>
-            <tr>
-                <td colspan="5"><input class="textnote" type="text" placeholder="Ghi chú"></td>
+                <td>@ViewBag.tongtien.ToString("#,##0") VND</td>
             </tr>
         </table>
-        <form style="text-align:center;margin:20px" action="">
-            <button type="button" class="btn btn-primary">Thanh toán</button>
-            <button type="button" class="btn btn-primary">Cập nhật</button>
-        </form>
+    }
+    <form style="text-align:center;margin:20px" action="">
+        <button type="button" asp-controller="Home" asp-action="Cart" class="btn btn-primary">Thanh toán</button>
+        <button type="button" class="btn btn-primary">Cập nhật</button>
+    </form>
 </div>
