@@ -22,6 +22,7 @@ namespace WebASP.Controllers
         // GET: GioHangs
         public async Task<IActionResult> Index()
         {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var webASPContext = _context.GioHangs.Include(g => g.SanPham).Include(g => g.TaiKhoan);
             return View(await webASPContext.ToListAsync());
         }

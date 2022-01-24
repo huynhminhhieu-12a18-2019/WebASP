@@ -557,3 +557,6 @@ C:\Users\HuynhMinhHieu\Desktop\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\GioHan
 C:\Users\HuynhMinhHieu\Desktop\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\GioHangs\Details.cshtml.g.cs
 C:\Users\HuynhMinhHieu\Desktop\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\GioHangs\Edit.cshtml.g.cs
 C:\Users\HuynhMinhHieu\Desktop\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\GioHangs\Index.cshtml.g.cs
+D:\DoAn_HK5_2021_2022\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\Home\Pay.cshtml.g.cs
+D:\DoAn_HK5_2021_2022\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\HoaDons\HoaDonChuaDuyet.cshtml.g.cs
+D:\DoAn_HK5_2021_2022\WebASP\WebASP\obj\Debug\net5.0\Razor\Views\Home\Search.cshtml.g.cs

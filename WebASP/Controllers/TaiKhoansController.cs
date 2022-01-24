@@ -26,6 +26,7 @@ namespace WebASP.Controllers
         // GET: TaiKhoans
         public async Task<IActionResult> Index()
         {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var webASPContext = _context.TaiKhoans.Include(t => t.LoaiTK);
             return View(await webASPContext.ToListAsync());
         }

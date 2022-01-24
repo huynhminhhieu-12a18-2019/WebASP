@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="~/users/css/owl.carousel.css">
     <link rel="stylesheet" href="~/users/style.css">
     <link rel="stylesheet" href="~/users/css/responsive.css">
+    <link rel="stylesheet" href="~/users/css/style.css">
 </head>
 
 <body>
@@ -26,8 +27,7 @@
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="~/users/#"><i class="fa fa-user"></i> My Account</a></li>
-                            @*<li><a href="~/users/#"><i class="fa fa-heart"></i> Wishlist</a></li>*@
+                            <li><a  asp-controller="Home" asp-action="MyAccount"><i class="fa fa-user"></i> My Account</a></li>
                             <li><a asp-controller="Home" asp-action="Cart"><i class="fa fa-user"></i> My Cart</a></li>
                             @if (@ViewData["TaiKhoan"] != null)
                             {
@@ -73,20 +73,27 @@
     <div class="site-branding-area">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-3">
                     <div class="logo">
                         <h1><a asp-controller="Home" asp-action="Index"><img src="~/users/img/logo.png"></a></h1>
                     </div>
                 </div>
-
-                <div class="col-sm-6">
-                    <div class="shopping-item">
-                        <a asp-controller="Home" asp-action="Cart">Cart @*- <span class="cart-amunt">$100</span>*@ <i class="fa fa-shopping-cart"></i> <span class="product-count">2</span></a>
+                <div class="col-sm-6"><form  asp-action="Search" asp-controller="Home" method="post">
+                                          <div class="box">
+                                              <div class="container-4">
+                                                  <input name="thongtin" type="search" id="search" placeholder="Search..." />
+                                                  <button class="icon"><i class="fa fa-search"></i></button>
+                                              </div>
+                                          </div>
+                     </form></div>
+                    <div class="col-sm-3">
+                        <div class="shopping-item">
+                            <a asp-controller="Home" asp-action="Cart">Cart  <i class="fa fa-shopping-cart"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>  @*End site branding area*@
+    </div>
 
     <div class="mainmenu-area">
         <div class="container">
@@ -114,6 +121,12 @@
                             <li><a asp-action="AllProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
                         }
                         @if (@ViewData["Title"] == "Giỏ hàng")
+                        {
+                            <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
+                        }
+                        @if (@ViewData["Title"] == "Tìm kiếm")
                         {
                             <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                             <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>

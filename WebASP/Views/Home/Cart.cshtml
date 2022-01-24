@@ -32,12 +32,12 @@
                     <td><a class="imgproduct" href=""><img src="~/img/sanpham/@item.SanPham.Anh" alt="" /></a></td>
                     <td><a class="nameproduct" href="">@item.SanPham.TenSP</a></td>
                     <td>
-                        <p></p><form asp-controller="Home" asp-action="CapNhatSL" asp-route-id="@item.SanPham.SanPhamId" method="post">
+                        <p></p><form id="myform" asp-controller="Home" asp-action="CapNhatSL" asp-route-id="@item.SanPham.SanPhamId" method="post">
                             <input type="number" name="quantity" value="@item.SL" min="1" max="50">
                         </form>
                     </td>
                     <td>@item.SanPham.DonGia.ToString("#,##0") VND</td>
-                    <td><a class="imgremove" href=""><img src="~/users/cart/images/remove.png" alt="" /></a></td>
+                    <td><a class="imgremove" asp-controller="Home" asp-action="XoaSPGioHang" asp-route-id="@item.SanPham.SanPhamId"><img src="~/users/cart/images/remove.png" alt="" /></a></td>
                 </tr>
             }
             <tr>
@@ -46,8 +46,13 @@
             </tr>
         </table>
     }
-    <form style="text-align:center;margin:20px" action="">
-        <button type="button" asp-controller="Home" asp-action="Cart" class="btn btn-primary">Thanh toán</button>
-        <button type="button" class="btn btn-primary">Cập nhật</button>
-    </form>
+<div style="text-align:center;margin:20px">
+    <a asp-controller="Home" asp-action="Pay"><button type="button" class="btn btn-primary">Mua hàng</button></a>
+    <button onclick="submitForm()" class="btn btn-primary">Cập nhật</button>
+</div>
+    <script type="text/javascript">
+        function submitForm() {
+            document.getElementsById('myform').submit();
+        }
+    </script>
 </div>

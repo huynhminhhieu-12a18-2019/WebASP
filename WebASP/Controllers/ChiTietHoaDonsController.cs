@@ -22,6 +22,7 @@ namespace WebASP.Controllers
         // GET: ChiTietHoaDons
         public async Task<IActionResult> Index()
         {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var webASPContext = _context.ChiTietHoaDons.Include(c => c.HoaDon).Include(c => c.SanPham);
             return View(await webASPContext.ToListAsync());
         }

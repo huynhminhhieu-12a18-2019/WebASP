@@ -27,11 +27,16 @@ namespace WebASP.Controllers
             {
                 ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             }
+            ViewBag.TaiKhoanid =  Convert.ToInt32(HttpContext.Request.Cookies["TaiKhoanId"]);
             var sanphams = _context.SanPhams.Include(s => s.LoaiSP);
             return View(sanphams);
         }
         public IActionResult AllProducts()
         {
+            if (HttpContext.Request.Cookies.ContainsKey("HoTen"))
+            {
+                ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
+            }
             var sanphams = _context.SanPhams.Include(s => s.LoaiSP);
             return View(sanphams);
         }
@@ -117,6 +122,10 @@ namespace WebASP.Controllers
         [HttpPost]
         public IActionResult Addcart(int sanphamId, int sl)
         {
+            if (!HttpContext.Request.Cookies.ContainsKey("HoTen"))
+            {
+                return RedirectToAction("Login", "Home");
+            }
             int taikhoanid = Convert.ToInt32(HttpContext.Request.Cookies["TaiKhoanId"]);
             GioHang giohang = _context.GioHangs.Include(gio=>gio.SanPham).FirstOrDefault(gio => gio.TaiKhoanId == taikhoanid && gio.SanPhamId == sanphamId);
             float tongtien = _context.SanPhams.Where(sp => sp.SanPhamId == sanphamId).Select(sp => sp.DonGia).FirstOrDefault();
@@ -146,6 +155,76 @@ namespace WebASP.Controllers
             giohang.TongTien = quantity * giohang.SanPham.DonGia;
             _context.SaveChanges();
             return RedirectToAction("Cart", "Home");
+        }
+        public IActionResult XoaSPGioHang(int id)
+        {
+            int taikhoanid = Convert.ToInt32(HttpContext.Request.Cookies["TaiKhoanId"]);
+            GioHang giohang = _context.GioHangs.Where(gio=>gio.SanPhamId == id && gio.TaiKhoanId == taikhoanid).FirstOrDefault();
+            _context.GioHangs.Remove(giohang);
+            _context.SaveChanges();
+            return RedirectToAction("Cart", "Home");
+        }
+        public IActionResult Pay()
+        {
+            int taikhoanid = Convert.ToInt32(HttpContext.Request.Cookies["TaiKhoanId"]);
+            List<GioHang> giohang = _context.GioHangs.Include(gio => gio.SanPham).Where(gio => gio.TaiKhoanId == taikhoanid).ToList();
+            TaiKhoan taikhoan = _context.TaiKhoans.Find(taikhoanid);
+            ViewBag.taikhoan = taikhoan;
+            float tongtien = 0;
+            foreach (var gio in giohang)
+            {
+                tongtien += gio.TongTien;
+            }
+            ViewBag.tongtien = tongtien;
+            ViewBag.slsp = giohang.Count();
+            return View(giohang);
+        }
+        public IActionResult TaoHoaDon(string HoTen, string SDT,string DChi,string thanhtoan)
+        {
+            bool tt = false;
+            if(thanhtoan == "1")
+            {
+                tt = true;
+            }
+            int taikhoanid = Convert.ToInt32(HttpContext.Request.Cookies["TaiKhoanId"]);
+            List<GioHang> giohang = _context.GioHangs.Include(gio => gio.SanPham).Where(gio => gio.TaiKhoanId == taikhoanid).ToList();
+            float tongtien = 0;
+            foreach (var gio in giohang)
+            {
+                tongtien += gio.TongTien;
+            }
+            Random rd = new Random();
+            string mahd = taikhoanid.ToString()+ "_" + DateTime.Now.ToShortDateString()+ "_"+ rd.Next(0,10000).ToString();
+            HoaDon hoaDon = new HoaDon();
+            hoaDon.MAHD = mahd;
+            hoaDon.TaiKhoanId = taikhoanid;
+            hoaDon.NgayLap = DateTime.Now;
+            hoaDon.ThanhToan = tt;
+            hoaDon.DChiGiaoHang = DChi;
+            hoaDon.SDTGiaoHang = SDT;
+            hoaDon.TenNguoiNhan = HoTen;
+            hoaDon.TongTien = tongtien;
+            hoaDon.TrangThai = false;
+            _context.HoaDons.Add(hoaDon);
+            _context.SaveChanges();
+            int idhoadon = _context.HoaDons.Where(hd => hd.MAHD == mahd).Select(hd => hd.HoaDonId).FirstOrDefault();
+            foreach (var gio in giohang)
+            {
+                ChiTietHoaDon cthd = new ChiTietHoaDon();
+                cthd.HoaDonId = idhoadon;
+                cthd.SanPhamId = gio.SanPhamId;
+                cthd.SL = gio.SL;
+                cthd.DonGia = _context.SanPhams.Where(sp => sp.SanPhamId == gio.SanPhamId).Select(sp => sp.DonGia).FirstOrDefault();
+                _context.ChiTietHoaDons.Add(cthd);
+                _context.GioHangs.Remove(gio);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("index", "Home");
+        }
+        public IActionResult Search(string thongtin)
+        {
+            var lstsanpham = _context.SanPhams.Include(sp=>sp.LoaiSP).Where(sp=>sp.MASP.Contains(thongtin) || sp.TenSP.Contains(thongtin));
+            return View(lstsanpham);
         }
     }
 }

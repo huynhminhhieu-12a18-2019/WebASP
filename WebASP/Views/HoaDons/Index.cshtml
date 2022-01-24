@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<WebASP.Models.HoaDon>
 
 @{
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -71,7 +72,16 @@
                 @Html.DisplayFor(modelItem => item.TongTien)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
+                <a asp-controller="HoaDons" asp-route-id="@item.HoaDonId" asp-route-trang="index" asp-action="SuaTrangThai">
+                    @if (item.TrangThai == true)
+                    {
+                        <button  type="submit" class="btn btn-success">True</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-danger">False</button>
+                    }
+                </a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.HoaDonId">Sửa</a> |

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<WebASP.Models.HoaDon>
+
+@{
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Tất cả hóa đơn chưa duyệt</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MAHD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaiKhoan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayLap)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThanhToan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DChiGiaoHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SDTGiaoHang)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenNguoiNhan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MAHD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaiKhoan.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayLap)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThanhToan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DChiGiaoHang)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDTGiaoHang)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenNguoiNhan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongTien)
+                </td>
+                <td>
+
+                    <a asp-controller="HoaDons" asp-route-id="@item.HoaDonId" asp-route-trang="HoaDonChuaDuyet" asp-action="SuaTrangThai">
+                        @if (item.TrangThai == true)
+                        {
+                            
+                            <button type="submit" class="btn btn-success">True</button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-danger">False</button>
+                        }
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.HoaDonId">Sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.HoaDonId">Chi tiết</a> |
+                    <a asp-action="Delete" asp-route-id="@item.HoaDonId">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

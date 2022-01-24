@@ -26,6 +26,7 @@ namespace WebASP.Controllers
         // GET: SanPhams
         public async Task<IActionResult> Index()
         {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var webASPContext = _context.SanPhams.Include(s => s.LoaiSP);
             return View(await webASPContext.ToListAsync());
         }

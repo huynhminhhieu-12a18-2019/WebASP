@@ -22,6 +22,7 @@ namespace WebASP.Controllers
         // GET: HoaDons
         public async Task<IActionResult> Index()
         {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var webASPContext = _context.HoaDons.Include(h => h.TaiKhoan);
             return View(await webASPContext.ToListAsync());
         }
@@ -156,5 +157,32 @@ namespace WebASP.Controllers
         {
             return _context.HoaDons.Any(e => e.HoaDonId == id);
         }
+        public IActionResult SuaTrangThai(int id,string trang)
+        {
+            var hoadon = _context.HoaDons.Find(id);
+            if (!hoadon.TrangThai)
+            {
+                hoadon.TrangThai = true;
+            }
+            else
+            {
+                hoadon.TrangThai = false;
+            }
+            _context.HoaDons.Update(hoadon);
+            _context.SaveChanges();
+            if (trang == "index")
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(HoaDonChuaDuyet));
+
+        }
+        public async Task<IActionResult> HoaDonChuaDuyet()
+        {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
+            var webASPContext = _context.HoaDons.Include(h => h.TaiKhoan).Where(hd=>hd.TrangThai == false);
+            return View(await webASPContext.ToListAsync());
+        }
+
     }
 }

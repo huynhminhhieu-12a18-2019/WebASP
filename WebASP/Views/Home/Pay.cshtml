@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebASP.Models.GioHang>
+@{
+    ViewData["Title"] = "Thanh toán";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
+    TaiKhoan taikhoan = ViewBag.taikhoan;
+}
+<script src="~/admins/vendor/jquery/jquery.min.js"></script>
+<script src="~/admins/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="~/admins/js/sb-admin-2.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="~/admins/vendor/jquery-easing/jquery.easing.min.js"></script>
+<link rel="stylesheet" href="~/users/cart/style.css" />
+<div>
+    <form action="TaoHoaDon" method="post">
+        <span style="color:red;font-size:20px"><i class="fas fa-map-marker-alt"></i> Địa chỉ nhận hàng</span><br><br>
+        <label>Tên người nhận hàng:</label><br>
+        <input type="text" style="width:500px" name="HoTen" value="@taikhoan.HoTen" /><br><br>
+        <label>Số điện thoại nhận hàng:</label><br>
+        <input type="text" style="width:500px" name="SDT" value="@taikhoan.SDT" /><br><br>
+        <label>Địa chỉ nhận hàng:</label><br>
+        <input type="text" style="width:500px" name="DChi" value="@taikhoan.DChi" /><br><br>
+        <span style="color:red;font-size:20px"> Phương thức thanh toán</span><br>
+        <select name="thanhtoan" style="height:40px">
+            <option value="0">Thanh toán khi nhận hàng</option>
+            <option value="1">Thanh toán trực tuyến</option>
+        </select><br><br>
+        <span style="color:red;font-size:20px"> Sản phẩm</span><br><br>
+        <table border="1">
+            <tr>
+                <th style="width: 211px"> Sản phẩm </th>
+                <th style="width: 523px"> Tên sản phẩm </th>
+                <th style="width: 157px"> Số lượng </th>
+                <th style="width: 185px"> Giá tiền </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="~/img/sanpham/@item.SanPham.Anh" alt="" /></td>
+                    <td>@item.SanPham.TenSP</td>
+                    <td>
+                        @item.SL
+                    </td>
+                    <td>@item.SanPham.DonGia.ToString("#,##0") VND</td>
+                </tr>
+            }
+            <tr>
+                <td colspan="3">Tổng tiền</td>
+                <td>@ViewBag.tongtien.ToString("#,##0") VND</td>
+            </tr>
+        </table>
+        <button style="text-align:center;margin:20px" type="submit" class="btn btn-primary">Thanh toán</button>
+    </form>
+</div>
