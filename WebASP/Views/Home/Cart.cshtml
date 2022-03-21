@@ -46,13 +46,9 @@
             </tr>
         </table>
     }
-<div style="text-align:center;margin:20px">
-    <a asp-controller="Home" asp-action="Pay"><button type="button" class="btn btn-primary">Mua hàng</button></a>
-    <button onclick="submitForm()" class="btn btn-primary">Cập nhật</button>
-</div>
-    <script type="text/javascript">
-        function submitForm() {
-            document.getElementsById('myform').submit();
-        }
-    </script>
+    @ViewBag.loi
+    <div style="text-align:center;margin:20px">
+        <a asp-controller="Home" asp-action="Pay"><button type="button" class="btn btn-primary">Mua hàng</button></a>
+        <button onclick="submitForm()" class="btn btn-primary">Cập nhật</button>
+    </div>
 </div>

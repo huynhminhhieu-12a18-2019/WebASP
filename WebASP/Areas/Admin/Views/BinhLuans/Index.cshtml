@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebASP.Models.BinhLuan>
+
+@{
+    ViewData["Title"] = "Danh sách bình luận";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Danh sách bình luận</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.noidung)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.trangthai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.thoigian)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaiKhoan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SanPham)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.noidung)
+            </td>
+            <td>
+                <a asp-route-id="@item.BinhLuanId" asp-area="Admin" asp-controller="BinhLuans" asp-action="SuaTrangThai">
+                    @if (item.trangthai == false)
+                    {
+                        <button class="btn btn-danger">Chưa duyệt</button>
+                    }
+                    @if (item.trangthai == true)
+                    {
+                        <button class="btn btn-success">Đã duyệt</button>
+                    }
+                </a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.thoigian)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaiKhoan.Ten)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SanPham.SanPhamId)
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-id="@item.BinhLuanId">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

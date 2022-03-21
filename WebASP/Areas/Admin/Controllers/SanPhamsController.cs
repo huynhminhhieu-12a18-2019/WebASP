@@ -30,7 +30,22 @@ namespace WebASP.Areas.Admin.Controllers
             var webASPContext = _context.SanPhams.Include(s => s.LoaiSP);
             return View(await webASPContext.ToListAsync());
         }
+        public IActionResult SuaTrangThai(int id)
+        {
+            var sanPham = _context.SanPhams.Find(id);
+            if (sanPham.Trangthai == true)
+            {
+                sanPham.Trangthai = false;
+            }
+            else if (sanPham.Trangthai == false)
+            {
+                sanPham.Trangthai = true;
+            }
+            _context.SanPhams.Update(sanPham);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
 
+        }
         // GET: Admin/SanPhams/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -38,7 +53,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var sanPham = await _context.SanPhams
                 .Include(s => s.LoaiSP)
                 .FirstOrDefaultAsync(m => m.SanPhamId == id);
@@ -53,7 +68,8 @@ namespace WebASP.Areas.Admin.Controllers
         // GET: Admin/SanPhams/Create
         public IActionResult Create()
         {
-            ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "LoaiSPId");
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
+            ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "TenLoai");
             return View();
         }
 
@@ -85,7 +101,7 @@ namespace WebASP.Areas.Admin.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "LoaiSPId", sanPham.LoaiSPId);
+            ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "TenLoai", sanPham.LoaiSPId);
             return View(sanPham);
         }
 
@@ -96,13 +112,13 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var sanPham = await _context.SanPhams.FindAsync(id);
             if (sanPham == null)
             {
                 return NotFound();
             }
-            ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "LoaiSPId", sanPham.LoaiSPId);
+            ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "TenLoai", sanPham.LoaiSPId);
             return View(sanPham);
         }
 
@@ -155,7 +171,7 @@ namespace WebASP.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "LoaiSPId", sanPham.LoaiSPId);
+            ViewData["LoaiSPId"] = new SelectList(_context.LoaiSPs, "LoaiSPId", "TenLoai", sanPham.LoaiSPId);
             return View(sanPham);
         }
 
@@ -166,7 +182,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var sanPham = await _context.SanPhams
                 .Include(s => s.LoaiSP)
                 .FirstOrDefaultAsync(m => m.SanPhamId == id);

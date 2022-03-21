@@ -1,0 +1,148 @@
+﻿@model IEnumerable<WebASP.Models.HoaDon>
+@{
+    ViewData["Title"] = "ThongKeChiTiet";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    var tiendachi = Model.GroupBy(i => i.TaiKhoanId).SelectMany(cl => cl.Select(
+                    csLine => new
+                    {
+                        MaKH = csLine.TaiKhoan.TaiKhoanId,
+                        TenKH = csLine.TaiKhoan.HoTen,
+                        SDT = csLine.TaiKhoan.SDT.ToString(),
+                        Total = cl.Sum(c => c.TongTien),
+                    })).OrderByDescending(i=>i.Total).Distinct().ToList();
+
+}
+<div style="margin-left:50px">
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Hóa đơn mới trong tuần
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Khách hàng</th>
+                        <th>Ngày lập</th>
+                        <th>Địa chỉ giao</th>
+                        <th>SDT giao</th>
+                        <th>Tổng tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var i in @ViewBag.hoadonmoi)
+                    {
+                        <tr>
+                            <td>@i.MAHD</td>
+                            <td>@i.TaiKhoan.Ten</td>
+                            <td>@i.NgayLap</td>
+                            <td>@i.DChiGiaoHang</td>
+                            <td>@i.SDTGiaoHang</td>
+                            <td>@i.TongTien.ToString("#,##0") VND</td>
+                        </tr>
+                    }
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <span style="font-weight:bold">Thống kê doanh thu</span>
+    <div>
+        <form asp-area="Admin" asp-route-tim="doanhthu" asp-controller="Home" asp-action="ThongKeChiTiet" method="post">
+            Khoảng ngày: <input id="datebefore" type="date" name="datebefore" value="" />   <input type="date" id="dateafter" name="dateafter" value="" />
+            <button type="submit">Tìm</button>
+        </form><br>
+        <p> Tổng doanh thu @ViewBag.khoangthoigiandoanhthu : @ViewBag.doanhthu VND</p>
+    </div><br>
+    <span style="font-weight:bold">Số tiền đã chi của mỗi khách hàng</span>
+    <table class="table">
+        <tr>
+            <th>Mã khách hàng</th>
+            <th>Tên khách hàng</th>
+            <th>SDT</th>
+            <th>Tiền đã chi</th>
+        </tr>
+        @foreach (var i in @tiendachi)
+        {
+            <tr>
+                <td>@i.MaKH</td>
+                <td>@i.TenKH</td>
+                <td>@i.SDT</td>
+                <td>@i.Total.ToString("#,##0") VND</td>
+            </tr>
+        }
+    </table>
+    <span style="font-weight:bold">Thống kê hóa đơn</span>
+    <form asp-area="Admin" asp-route-tim="hoadon" asp-controller="Home" asp-action="ThongKeChiTiet" method="post">
+        Khoảng ngày: <input id="datebefore2" type="date" name="datebefore" value="" />   <input type="date" id="dateafter2" name="dateafter" value="" />
+        <button type="submit">Tìm</button>
+    </form><br>
+    @if (ViewBag.hoadon.Count > 0)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Hóa đơn @ViewBag.khoangthoigianhoadon
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Mã hóa đơn</th>
+                            <th>Khách hàng</th>
+                            <th>Ngày lập</th>
+                            <th>Địa chỉ giao</th>
+                            <th>SDT giao</th>
+                            <th>Tổng tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in @ViewBag.hoadon)
+                        {
+                            <tr>
+                                <td>@i.MAHD</td>
+                                <td>@i.TaiKhoan.Ten</td>
+                                <td>@i.NgayLap</td>
+                                <td>@i.DChiGiaoHang</td>
+                                <td>@i.SDTGiaoHang</td>
+                                <td>@i.TongTien.ToString("#,##0") VND</td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+
+
+    <script>
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1;
+        var yyyy = today.getFullYear();
+
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("datebefore").setAttribute("max", today);
+        document.getElementById("dateafter").setAttribute("max", today);
+        document.getElementById("datebefore").setAttribute("value", today);
+        document.getElementById("dateafter").setAttribute("value", today);
+        document.getElementById("datebefore2").setAttribute("max", today);
+        document.getElementById("dateafter2").setAttribute("max", today);
+        document.getElementById("datebefore2").setAttribute("value", today);
+        document.getElementById("dateafter2").setAttribute("value", today);
+    </script>
+</div>
+

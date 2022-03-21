@@ -1,0 +1,37 @@
+﻿@model IEnumerable<WebASP.Models.Banner>
+
+@{
+    ViewData["Title"] = "Danh sách banner";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
+}
+
+<h1>Danh sách banner</h1>
+
+<p>
+    <a asp-action="Create">Thêm mới</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BannerString)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                
+                <img style="width:100px" src="~/img/banner/@Html.DisplayFor(modelItem => item.BannerString)" alt="Alternate Text" />
+            </td>
+            <td style="padding-top:40px">
+                <a asp-action="Edit" asp-route-id="@item.BannerId">Sửa</a> |
+                <a asp-action="Delete" asp-route-id="@item.BannerId">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

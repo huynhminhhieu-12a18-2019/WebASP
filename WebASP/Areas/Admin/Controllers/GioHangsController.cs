@@ -35,7 +35,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var gioHang = await _context.GioHangs
                 .Include(g => g.SanPham)
                 .Include(g => g.TaiKhoan)
@@ -51,6 +51,7 @@ namespace WebASP.Areas.Admin.Controllers
         // GET: Admin/GioHangs/Create
         public IActionResult Create()
         {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             ViewData["SanPhamId"] = new SelectList(_context.SanPhams, "SanPhamId", "SanPhamId");
             ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoans, "TaiKhoanId", "TaiKhoanId");
             return View();
@@ -81,7 +82,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var gioHang = await _context.GioHangs.FindAsync(id);
             if (gioHang == null)
             {
@@ -136,7 +137,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var gioHang = await _context.GioHangs
                 .Include(g => g.SanPham)
                 .Include(g => g.TaiKhoan)

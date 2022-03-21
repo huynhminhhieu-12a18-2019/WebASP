@@ -1,8 +1,9 @@
 ﻿@model WebASP.Models.SanPham
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xóa sản phẩm";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
 }
 
 <h1>Xóa sản phẩm</h1>
@@ -39,7 +40,7 @@
             @Html.DisplayNameFor(model => model.Anh)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Anh)
+            <img style=" width: 200px;" src="~/img/sanpham/@Html.DisplayFor(model => model.Anh)" alt="Alternate Text" />
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.SL)

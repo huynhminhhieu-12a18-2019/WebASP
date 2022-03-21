@@ -27,7 +27,7 @@ namespace WebASP.Models
         [DisplayName("Tổng tiền")]
         public float TongTien { get; set; }
         [DisplayName("Trạng thái")]
-        public bool TrangThai { get; set; }
+        public int TrangThai { get; set; }
         public List<ChiTietHoaDon> ChiTietHoaDons { get; set; }
     }
 }

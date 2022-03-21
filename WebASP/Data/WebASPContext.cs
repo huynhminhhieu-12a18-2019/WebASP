@@ -27,5 +27,8 @@ namespace WebASP.Data
         public DbSet<WebASP.Models.LoaiTK> LoaiTKs { get; set; }
 
         public DbSet<WebASP.Models.TaiKhoan> TaiKhoans { get; set; }
+
+        public DbSet<WebASP.Models.Banner> Banners { get; set; }
+        public DbSet<WebASP.Models.BinhLuan> BinhLuans { get; set; }
     }
 }

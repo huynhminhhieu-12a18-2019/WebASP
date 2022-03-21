@@ -2,15 +2,12 @@
 
 @{
     ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách giỏ hàng";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Danh sách giỏ hàng</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -45,9 +42,8 @@
                 @Html.DisplayFor(modelItem => item.TongTien)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.GioHangId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.GioHangId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.GioHangId">Delete</a>
+                <a asp-action="Details" asp-route-id="@item.GioHangId">Chi tiết</a> |
+                <a asp-action="Delete" asp-route-id="@item.GioHangId">Xóa</a>
             </td>
         </tr>
 }

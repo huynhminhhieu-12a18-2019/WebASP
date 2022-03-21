@@ -1,0 +1,51 @@
+﻿
+@model WebASP.Models.TaiKhoan
+
+@{
+    ViewData["Title"] = "Tài khoản của tôi";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-5">
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Ten" class="control-label"></label>
+                <input asp-for="Ten" class="form-control" />
+                <span asp-validation-for="Ten" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MK" class="control-label"></label>
+                <input type="password" asp-for="MK" class="form-control" />
+                <span asp-validation-for="MK" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label  class="control-label">Nhập lại mật khẩu</label>
+                <input type="password" name="XNMK" class="form-control" />
+                @ViewBag.loi
+            </div>
+            <div class="form-group">
+                <label asp-for="HoTen" class="control-label"></label>
+                <input asp-for="HoTen" class="form-control" />
+                <span asp-validation-for="HoTen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DChi" class="control-label"></label>
+                <input asp-for="DChi" class="form-control" />
+                <span asp-validation-for="DChi" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SDT" class="control-label"></label>
+                <input asp-for="SDT" class="form-control" />
+                <span asp-validation-for="SDT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input style="width:100%" type="submit" value="Đăng kí" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+

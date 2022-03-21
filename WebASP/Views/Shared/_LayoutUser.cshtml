@@ -27,15 +27,15 @@
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a  asp-controller="Home" asp-action="MyAccount"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a asp-controller="Home" asp-action="Cart"><i class="fa fa-user"></i> My Cart</a></li>
+                            <li><a  asp-controller="Home" asp-action="MyAccount"><i class="fa fa-user"></i>Tài khoản</a></li>
+                            <li><a asp-controller="Home" asp-action="Cart"><i class="fa fa-user"></i>Giỏ hàng</a></li>
                             @if (@ViewData["TaiKhoan"] != null)
                             {
-                                <li><a asp-controller="Home" asp-action="Logout"><i class="fa fa-user"></i> Logout</a></li>
+                                <li><a asp-controller="Home" asp-action="Logout"><i class="fa fa-user"></i> Đăng xuất</a></li>
                             }
                             else
                             {
-                                <li><a asp-controller="Home" asp-action="Login"><i class="fa fa-user"></i> Login</a></li>
+                                <li><a asp-controller="Home" asp-action="Login"><i class="fa fa-user"></i> Đăng nhập</a></li>
                             }
 
 
@@ -43,29 +43,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="header-right">
-                        <ul class="list-unstyled list-inline">
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="~/users/#"><span class="key">currency :</span><span class="value">USD </span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="~/users/#">USD</a></li>
-                                    <li><a href="~/users/#">INR</a></li>
-                                    <li><a href="~/users/#">GBP</a></li>
-                                </ul>
-                            </li>
-
-                            <li class="dropdown dropdown-small">
-                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="~/users/#"><span class="key">language :</span><span class="value">English </span><b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="~/users/#">English</a></li>
-                                    <li><a href="~/users/#">French</a></li>
-                                    <li><a href="~/users/#">German</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+               
             </div>
         </div>
     </div>  @*End header area*@
@@ -88,7 +66,7 @@
                      </form></div>
                     <div class="col-sm-3">
                         <div class="shopping-item">
-                            <a asp-controller="Home" asp-action="Cart">Cart  <i class="fa fa-shopping-cart"></i></a>
+                            <a asp-controller="Home" asp-action="Cart">Giỏ hàng  <i class="fa fa-shopping-cart"></i></a>
                         </div>
                     </div>
                 </div>
@@ -112,25 +90,82 @@
                         {
                             <li class="active"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                             <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
-                            <li><a asp-action="AllProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
+                            <li><a asp-action="Asus" asp-controller="Home">ASUS</a></li>
+                            <li><a asp-action="Acer" asp-controller="Home">ACER</a></li>
+                            <li><a asp-action="Dell" asp-controller="Home">DELL</a></li>
+                            <li><a asp-action="Msi" asp-controller="Home">MSI</a></li>
                         }
                         @if (@ViewData["Title"] == "Sản phẩm")
                         {
                             <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                             <li class="active"><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
-                            <li><a asp-action="AllProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
+                            <li><a asp-action="Asus" asp-controller="Home">ASUS</a></li>
+                            <li><a asp-action="Acer" asp-controller="Home">ACER</a></li>
+                            <li><a asp-action="Dell" asp-controller="Home">DELL</a></li>
+                            <li><a asp-action="Msi" asp-controller="Home">MSI</a></li>
+                        }
+                        @if (@ViewData["Title"] == "Asus")
+                        {
+                            <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
+                            <li class="active"><a asp-action="Asus" asp-controller="Home">ASUS</a></li>
+                            <li><a asp-action="Acer" asp-controller="Home">ACER</a></li>
+                            <li><a asp-action="Dell" asp-controller="Home">DELL</a></li>
+                            <li><a asp-action="Msi" asp-controller="Home">MSI</a></li>
+                        }
+                        @if (@ViewData["Title"] == "Acer")
+                        {
+                            <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
+                            <li><a asp-action="Asus" asp-controller="Home">ASUS</a></li>
+                            <li class="active"><a asp-action="Acer" asp-controller="Home">ACER</a></li>
+                            <li><a asp-action="Dell" asp-controller="Home">DELL</a></li>
+                            <li><a asp-action="Msi" asp-controller="Home">MSI</a></li>
+                        }
+                        @if (@ViewData["Title"] == "Dell")
+                        {
+                            <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
+                            <li><a asp-action="Asus" asp-controller="Home">ASUS</a></li>
+                            <li><a asp-action="Acer" asp-controller="Home">ACER</a></li>
+                            <li class="active"><a asp-action="Dell" asp-controller="Home">DELL</a></li>
+                            <li><a asp-action="Msi" asp-controller="Home">MSI</a></li>
+                        }
+                        @if (@ViewData["Title"] == "Msi")
+                        {
+                            <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
+                            <li><a asp-action="Asus" asp-controller="Home">ASUS</a></li>
+                            <li><a asp-action="Acer" asp-controller="Home">ACER</a></li>
+                            <li><a asp-action="Dell" asp-controller="Home">DELL</a></li>
+                            <li class="active"><a asp-action="Msi" asp-controller="Home">MSI</a></li>
                         }
                         @if (@ViewData["Title"] == "Giỏ hàng")
                         {
                             <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                             <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
-                            <li><a asp-action="AllProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
+                            <li><a asp-action="Asus" asp-controller="Home">ASUS</a></li>
+                            <li><a asp-action="Acer" asp-controller="Home">ACER</a></li>
+                            <li><a asp-action="Dell" asp-controller="Home">DELL</a></li>
+                            <li><a asp-action="Msi" asp-controller="Home">MSI</a></li>
                         }
                         @if (@ViewData["Title"] == "Tìm kiếm")
                         {
                             <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
                             <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
-                            <li><a asp-action="AllProducts" asp-controller="Home">Danh mục sản phẩm</a></li>
+                            <li><a asp-action="Asus" asp-controller="Home">ASUS</a></li>
+                            <li><a asp-action="Acer" asp-controller="Home">ACER</a></li>
+                            <li><a asp-action="Dell" asp-controller="Home">DELL</a></li>
+                            <li><a asp-action="Msi" asp-controller="Home">MSI</a></li>
+                        }
+                        @if (@ViewData["Title"] == "Tài khoản của tôi")
+                        {
+                            <li><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+                            <li><a asp-action="AllProducts" asp-controller="Home">Tất cả sản phẩm</a></li>
+                            <li><a asp-action="Asus" asp-controller="Home">ASUS</a></li>
+                            <li><a asp-action="Acer" asp-controller="Home">ACER</a></li>
+                            <li><a asp-action="Dell" asp-controller="Home">DELL</a></li>
+                            <li><a asp-action="Msi" asp-controller="Home">MSI</a></li>
                         }
                     </ul>
                 </div>

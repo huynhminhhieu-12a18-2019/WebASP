@@ -5,22 +5,22 @@
     ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
     ViewData["TaiKhoanid"] = ViewBag.TaiKhoanid;
 }
-
+<style>
+a{
+    text-decoration:none;
+}
+</style>
 <div class="slider-area">
     <div class="block-slider block-slider4">
         <ul class="" id="bxslider-home4">
+            @foreach (var banner in ViewBag.banners)
+            {
             <li>
-                <img src="~/users/img/1.png" alt="Slide">
+                <img src="~/img/banner/@banner.BannerString" alt="Slide">
 
             </li>
-            <li>
-                <img src="~/users/img/2.png" alt="Slide">
-
-            </li>
-            <li>
-                <img src="~/users/img/3.png" alt="Slide">
-
-            </li>
+            }
+            
         </ul>
     </div>
 </div>  @*End slider area*@
@@ -62,35 +62,72 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                    <h2 class="section-title">All Products</h2>
-            <div class="row">
-                @foreach (var item in Model)
-                {
-                    <div style="height: 400px; " class="col-md-3">
-                        <div style="width: 200px; margin-bottom:20px" class="single-product">
-                            <div style="height: 265px;" class="product-f-image">
-                                <img style="width:200px" src="~/img/sanpham/@item.Anh" alt="">
-                                <div class="product-hover">
-                                    <a asp-controller="Home" asp-action="Addcart" asp-route-id="@item.SanPhamId" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                                    <a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                <h2 class="section-title">Sản phẩm mới</h2>
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div style="height: 400px; " class="col-md-3">
+                            <div style="width: 200px; margin-bottom:20px" class="single-product">
+                                <div style="height: 265px;" class="product-f-image">
+                                    <img style="width:200px" src="~/img/sanpham/@item.Anh" alt="">
+                                    <div class="product-hover">
+                                        <a asp-controller="Home" asp-action="Addcart" asp-route-id="@item.SanPhamId" asp-route-SL="1" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                    </div>
                                 </div>
+
+                                <h2><a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct"> @item.TenSP</a></h2>
+
+                                <div class="product-carousel-price">
+                                    <ins>@item.DonGia.ToString("#,##0") VND</ins>
+
+                                </div>
+
                             </div>
 
-                            <h2><a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct"> @item.TenSP</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>@item.DonGia.ToString("#,##0") VND</ins>
-
-</div>
-
-</div>
-
-</div>
-                }
-            </div>
+                        </div>
+                    }
                 </div>
+            </div>
         </div>
     </div>
+    @if (@ViewBag.sanphambanchay.Count > 0)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="section-title">Sản phẩm bán chạy</h2>
+                    <div class="row">
+                        @foreach (var i in @ViewBag.sanphambanchay)
+                        {
+                            <div style="height: 400px; " class="col-md-3">
+                                <div style="width: 200px; margin-bottom:20px" class="single-product">
+                                    <div style="height: 265px;" class="product-f-image">
+                                        @*@i.SL*@
+                                        <img style="width:200px" src="~/img/sanpham/@i.Anh" alt="">
+                                        <div class="product-hover">
+                                            <a asp-controller="Home" asp-action="Addcart" asp-route-id="@i.SanPhamId" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                            <a asp-route-id="@i.SanPhamId" asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        </div>
+                                    </div>
+
+                                    <h2><a asp-route-id="@i.SanPhamId" asp-controller="Home" asp-action="SingleProduct"> @i.TenSP</a></h2>
+
+                                    <div class="product-carousel-price">
+                                        <ins>@i.DonGia.ToString("#,##0") VND</ins>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
 </div>  @*End main content area*@
 
 <!--<div class="brands-area">

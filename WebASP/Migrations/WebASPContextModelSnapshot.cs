@@ -19,6 +19,52 @@ namespace WebASP.Migrations
                 .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("WebASP.Models.Banner", b =>
+                {
+                    b.Property<int>("BannerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BannerString")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BannerId");
+
+                    b.ToTable("Banners");
+                });
+
+            modelBuilder.Entity("WebASP.Models.BinhLuan", b =>
+                {
+                    b.Property<int>("BinhLuanId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("SanPhamId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TaiKhoanId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("noidung")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("thoigian")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("trangthai")
+                        .HasColumnType("bit");
+
+                    b.HasKey("BinhLuanId");
+
+                    b.HasIndex("SanPhamId");
+
+                    b.HasIndex("TaiKhoanId");
+
+                    b.ToTable("BinhLuans");
+                });
+
             modelBuilder.Entity("WebASP.Models.ChiTietHoaDon", b =>
                 {
                     b.Property<int>("ChiTietHoaDonId")
@@ -106,8 +152,8 @@ namespace WebASP.Migrations
                     b.Property<float>("TongTien")
                         .HasColumnType("real");
 
-                    b.Property<bool>("TrangThai")
-                        .HasColumnType("bit");
+                    b.Property<int>("TrangThai")
+                        .HasColumnType("int");
 
                     b.HasKey("HoaDonId");
 
@@ -209,14 +255,20 @@ namespace WebASP.Migrations
                     b.Property<string>("MK")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("NgSinh")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("NamSinh")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NgSinh")
+                        .HasColumnType("int");
 
                     b.Property<string>("SDT")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ThSinh")
+                        .HasColumnType("int");
 
                     b.Property<bool>("TrangThai")
                         .HasColumnType("bit");
@@ -226,6 +278,25 @@ namespace WebASP.Migrations
                     b.HasIndex("LoaiTKId");
 
                     b.ToTable("TaiKhoans");
+                });
+
+            modelBuilder.Entity("WebASP.Models.BinhLuan", b =>
+                {
+                    b.HasOne("WebASP.Models.SanPham", "SanPham")
+                        .WithMany()
+                        .HasForeignKey("SanPhamId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebASP.Models.TaiKhoan", "TaiKhoan")
+                        .WithMany("BinhLuans")
+                        .HasForeignKey("TaiKhoanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SanPham");
+
+                    b.Navigation("TaiKhoan");
                 });
 
             modelBuilder.Entity("WebASP.Models.ChiTietHoaDon", b =>
@@ -323,6 +394,8 @@ namespace WebASP.Migrations
 
             modelBuilder.Entity("WebASP.Models.TaiKhoan", b =>
                 {
+                    b.Navigation("BinhLuans");
+
                     b.Navigation("GioHangs");
 
                     b.Navigation("HoaDons");

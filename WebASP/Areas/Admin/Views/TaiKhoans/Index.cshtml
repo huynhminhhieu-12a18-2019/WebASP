@@ -2,7 +2,7 @@
 
 @{
     ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tất cả tài khoản";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -18,9 +18,6 @@
                 @Html.DisplayNameFor(model => model.Ten)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MK)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.HoTen)
             </th>
             <th>
@@ -29,6 +26,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.NgSinh)
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
@@ -48,44 +46,51 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ten)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MK)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DChi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgSinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <img style=" width: 50px;" src="~/img/taikhoan/@Html.DisplayFor(modelItem => item.Anh)" alt="Alternate Text" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SDT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LoaiTK.TenLoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.TaiKhoanId">Sửa</a> |
-                <a asp-action="Details" asp-route-id="@item.TaiKhoanId">Chi tiết</a> |
-                <a asp-action="Delete" asp-route-id="@item.TaiKhoanId">Xóa</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ten)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DChi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgSinh)/@Html.DisplayFor(modelItem => item.ThSinh)/@Html.DisplayFor(modelItem => item.NamSinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <img style=" width: 50px;" src="~/img/taikhoan/@Html.DisplayFor(modelItem => item.Anh)" alt="Alternate Text" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoaiTK.TenLoai)
+                </td>
+                <td>
+                    <a asp-route-id="@item.TaiKhoanId" asp-area="Admin" asp-controller="TaiKhoans" asp-action="SuaTrangThai">
+                        @if (item.TrangThai == false)
+                        {
+                            <button class="btn btn-danger">Đang khóa</button>
+                        }
+                        @if (item.TrangThai == true)
+                        {
+                            <button class="btn btn-success">Đang mở</button>
+                        }
+                    </a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.TaiKhoanId">Sửa</a> |
+                    <a asp-action="Details" asp-route-id="@item.TaiKhoanId">Chi tiết</a> |
+                    <a asp-action="Delete" asp-route-id="@item.TaiKhoanId">Xóa</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

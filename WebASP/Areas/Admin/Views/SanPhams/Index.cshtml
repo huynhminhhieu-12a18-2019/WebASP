@@ -2,7 +2,7 @@
 
 @{
     ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Tất cả sản phẩm";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -60,7 +60,16 @@
                 @Html.DisplayFor(modelItem => item.SL)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Trangthai)
+                <a asp-route-id="@item.SanPhamId" asp-area="Admin" asp-controller="SanPhams" asp-action="SuaTrangThai">
+                    @if (item.Trangthai == false)
+                    {
+                        <button class="btn btn-danger">Đang khóa</button>
+                    }
+                    @if (item.Trangthai == true)
+                    {
+                        <button class="btn btn-success">Đang bán</button>
+                    }
+                </a>
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.SanPhamId">Sửa</a> |

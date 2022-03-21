@@ -34,7 +34,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var loaiSP = await _context.LoaiSPs
                 .FirstOrDefaultAsync(m => m.LoaiSPId == id);
             if (loaiSP == null)
@@ -48,6 +48,7 @@ namespace WebASP.Areas.Admin.Controllers
         // GET: Admin/LoaiSPs/Create
         public IActionResult Create()
         {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             return View();
         }
 
@@ -74,7 +75,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var loaiSP = await _context.LoaiSPs.FindAsync(id);
             if (loaiSP == null)
             {
@@ -125,7 +126,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var loaiSP = await _context.LoaiSPs
                 .FirstOrDefaultAsync(m => m.LoaiSPId == id);
             if (loaiSP == null)

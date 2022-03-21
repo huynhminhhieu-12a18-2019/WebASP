@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>@ViewData["Title"]</title>
 
     <!-- Custom fonts for this template-->
     <link href="~/admins/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -30,7 +30,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-controller="Admins" asp-action="Index">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" asp-area="Admin" asp-controller="Home" asp-action="Index">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -42,7 +42,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" asp-controller="Admins" asp-action="Index">
+                <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -53,10 +53,6 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -66,14 +62,11 @@
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        @*<h6 class="collapse-header">Hóa đơn bán hàng:</h6>*@
                         <a class="collapse-item" asp-controller="HoaDons" asp-action="Index">Tất cả hóa đơn</a>
                         <a class="collapse-item" asp-controller="ChiTietHoaDons" asp-action="Index">Chi tiết hóa đơn</a>
                         <a class="collapse-item" asp-controller="HoaDons" asp-action="HoaDonChuaDuyet">Hóa đơn chưa duyệt</a>
-                        @*<div class="collapse-divider"></div>
-        <h6 class="collapse-header">Hóa đơn nhập hàng:</h6>
-        <a class="collapse-item" asp-controller="HoaDonBanHangs" asp-action="Index">Tất cả hóa đơn</a>
-        <a class="collapse-item" asp-controller="CTHDBanHangs" asp-action="Index">Chi tiết hóa đơn</a>*@
+                        <a class="collapse-item" asp-controller="HoaDons" asp-action="HoaDonDaDuyet">Hóa đơn đã duyệt</a>
+                        <a class="collapse-item" asp-controller="HoaDons" asp-action="HoaDonDaGiao">Hóa đơn đã giao</a>
                     </div>
                 </div>
             </li>
@@ -109,6 +102,30 @@
                 <a class="nav-link" asp-controller="GioHangs" asp-action="Index">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Giỏ hàng</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Banners" asp-action="Index">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Banner</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="BinhLuans" asp-action="Index">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Bình luận</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Home" asp-action="ThongKeChiTiet">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Thống kê chi tiết</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Home" asp-action="ThongKeSanPham">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Thống kê sản phẩm</span>
                 </a>
             </li>
             <!-- Divider -->
@@ -317,7 +334,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Thông tin tài khoản
                                 </a>
-                                <a class="dropdown-item" asp-controller="Home" asp-action="Logout">
+                                <a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Logout">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Đăng xuất
                                 </a>

@@ -34,7 +34,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var loaiTK = await _context.LoaiTKs
                 .FirstOrDefaultAsync(m => m.LoaiTKId == id);
             if (loaiTK == null)
@@ -48,6 +48,7 @@ namespace WebASP.Areas.Admin.Controllers
         // GET: Admin/LoaiTKs/Create
         public IActionResult Create()
         {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             return View();
         }
 
@@ -74,7 +75,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var loaiTK = await _context.LoaiTKs.FindAsync(id);
             if (loaiTK == null)
             {
@@ -125,7 +126,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var loaiTK = await _context.LoaiTKs
                 .FirstOrDefaultAsync(m => m.LoaiTKId == id);
             if (loaiTK == null)

@@ -1,16 +1,16 @@
 ﻿@model WebASP.Models.TaiKhoan
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Sửa tài khoản";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
 }
 
 <h1>Sửa tài khoản</h1>
-
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="TaiKhoanId" />
             <div class="form-group">
@@ -35,8 +35,60 @@
             </div>
             <div class="form-group">
                 <label asp-for="NgSinh" class="control-label"></label>
-                <input asp-for="NgSinh" class="form-control" />
+                <select asp-for="NgSinh" class="form-control">
+
+                    @foreach (var i in ViewBag.ngay)
+                    {
+                        @if (i == Model.NgSinh)
+                        {
+                            <option selected value="@i">@i</option>
+                        }
+                        else
+                        {
+                        <option value="@i">@i</option>
+                        }
+                        
+                    }
+                </select>
                 <span asp-validation-for="NgSinh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThSinh" class="control-label"></label>
+                <select asp-for="ThSinh" class="form-control">
+
+                    @foreach (var i in ViewBag.thang)
+                    {
+
+                        @if (i == Model.ThSinh)
+                        {
+                            <option selected value="@i">@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ThSinh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NamSinh" class="control-label"></label>
+                <select asp-for="NamSinh" class="form-control">
+
+                    @foreach (var i in ViewBag.nam)
+                    {
+
+                        @if (i == Model.NamSinh)
+                        {
+                            <option selected value="@i">@i</option>
+                        }
+                        else
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="NamSinh" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
@@ -46,7 +98,7 @@
             <div class="form-group">
                 <label asp-for="AnhFile" class="control-label"></label>
                 <input asp-for="AnhFile" class="form-control" />
-                <span asp-validation-for="Anh" class="text-danger"></span>
+                <span asp-validation-for="AnhFile" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SDT" class="control-label"></label>

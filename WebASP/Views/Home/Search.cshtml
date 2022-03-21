@@ -4,25 +4,50 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
     ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
 }
-<div class="row">
-    @foreach (var item in Model)
+<div class="row" style="margin:20px">
+    <form asp-route-loai="loc" asp-action="Search" method="post">
+        <span>Khoảng giá tiền: <input style=" height: 40px; width: 200px;" type="number"  name="pricemin" value="@ViewBag.pricemin" min="1" max="100000000" />-<input style=" height: 40px; width: 200px;" type="number" name="pricemax" value="@ViewBag.pricemax" min="1" max="100000000" /></span>
+        <span>Loại sản phẩm: <select name="type" style=" height: 40px;">
+    @foreach (var i in ViewBag.loaisp)
     {
-        <div style="height: 400px; "class="col-md-3">
-            <div style="width: 200px; margin-bottom:20px" class="single-product">
-                <div style="height: 265px;" class="product-f-image">
-                    <img style="width:200px" src="~/img/sanpham/@item.Anh" alt="">
-                    <div class="product-hover">
-                        <a asp-controller="Home" asp-action="Addcart" asp-route-id="@item.SanPhamId" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
-                        <a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+        if (@i.LoaiSPId == ViewBag.loai)
+        {
+            <option selected value="@i.LoaiSPId">@i.TenLoai</option>
+        }
+        else
+        {
+            <option value="@i.LoaiSPId">@i.TenLoai</option>
+        }
+
+    }
+
+</select></span>
+        <input type="submit" value="Lọc" />
+    </form>
+    <div style="margin:20px">
+        @if (ViewBag.slsp == 0)
+        {
+            <h3>Không có sản phẩm nào!</h3>
+        }
+        @foreach (var item in Model)
+        {
+            <div style="height: 400px; " class="col-md-3">
+                <div style="width: 200px; margin-bottom:20px" class="single-product">
+                    <div style="height: 265px;" class="product-f-image">
+                        <img style="width:200px" src="~/img/sanpham/@item.Anh" alt="">
+                        <div class="product-hover">
+                            <a asp-controller="Home" asp-action="Addcart" asp-route-id="@item.SanPhamId" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                            <a asp-route-id="@item.SanPhamId" asp-controller="Home" asp-action="SingleProduct" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                        </div>
+                    </div>
+
+                    <h2><a asp-controller="Home" asp-action="SingleProduct"> @item.TenSP</a></h2>
+
+                    <div class="product-carousel-price">
+                        <ins>@item.DonGia.ToString("#,##0") VND</ins>
                     </div>
                 </div>
-
-                <h2><a asp-controller="Home" asp-action="SingleProduct"> @item.TenSP</a></h2>
-
-                <div class="product-carousel-price">
-                    <ins>@item.DonGia.ToString("#,##0") VND</ins>
             </div>
-        </div>
-        </div>
-    }
+        }
+    </div>
 </div>

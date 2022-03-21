@@ -35,7 +35,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var chiTietHoaDon = await _context.ChiTietHoaDons
                 .Include(c => c.HoaDon)
                 .Include(c => c.SanPham)
@@ -48,86 +48,8 @@ namespace WebASP.Areas.Admin.Controllers
             return View(chiTietHoaDon);
         }
 
-        // GET: Admin/ChiTietHoaDons/Create
-        public IActionResult Create()
-        {
-            ViewData["HoaDonId"] = new SelectList(_context.HoaDons, "HoaDonId", "HoaDonId");
-            ViewData["SanPhamId"] = new SelectList(_context.SanPhams, "SanPhamId", "SanPhamId");
-            return View();
-        }
-
-        // POST: Admin/ChiTietHoaDons/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ChiTietHoaDonId,HoaDonId,SanPhamId,SL,DonGia")] ChiTietHoaDon chiTietHoaDon)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(chiTietHoaDon);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["HoaDonId"] = new SelectList(_context.HoaDons, "HoaDonId", "HoaDonId", chiTietHoaDon.HoaDonId);
-            ViewData["SanPhamId"] = new SelectList(_context.SanPhams, "SanPhamId", "SanPhamId", chiTietHoaDon.SanPhamId);
-            return View(chiTietHoaDon);
-        }
-
-        // GET: Admin/ChiTietHoaDons/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var chiTietHoaDon = await _context.ChiTietHoaDons.FindAsync(id);
-            if (chiTietHoaDon == null)
-            {
-                return NotFound();
-            }
-            ViewData["HoaDonId"] = new SelectList(_context.HoaDons, "HoaDonId", "HoaDonId", chiTietHoaDon.HoaDonId);
-            ViewData["SanPhamId"] = new SelectList(_context.SanPhams, "SanPhamId", "SanPhamId", chiTietHoaDon.SanPhamId);
-            return View(chiTietHoaDon);
-        }
-
-        // POST: Admin/ChiTietHoaDons/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ChiTietHoaDonId,HoaDonId,SanPhamId,SL,DonGia")] ChiTietHoaDon chiTietHoaDon)
-        {
-            if (id != chiTietHoaDon.ChiTietHoaDonId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(chiTietHoaDon);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ChiTietHoaDonExists(chiTietHoaDon.ChiTietHoaDonId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["HoaDonId"] = new SelectList(_context.HoaDons, "HoaDonId", "HoaDonId", chiTietHoaDon.HoaDonId);
-            ViewData["SanPhamId"] = new SelectList(_context.SanPhams, "SanPhamId", "SanPhamId", chiTietHoaDon.SanPhamId);
-            return View(chiTietHoaDon);
-        }
+       
+        
 
         // GET: Admin/ChiTietHoaDons/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -136,7 +58,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var chiTietHoaDon = await _context.ChiTietHoaDons
                 .Include(c => c.HoaDon)
                 .Include(c => c.SanPham)

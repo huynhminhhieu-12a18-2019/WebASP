@@ -1,11 +1,12 @@
 ﻿@model WebASP.Models.HoaDon
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Thông tin chi tiết của hóa đơn";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
 }
 
-<h1>Thông tin chi tiết hóa đơn</h1>
+<h1>Thông tin chi tiết của hóa đơn</h1>
 
 <div>
     <hr />
@@ -67,6 +68,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.HoaDonId">Sửa</a> |
+    <a asp-action="Edit" asp-route-id="@Model.HoaDonId">Chỉnh sửa</a> |
     <a asp-action="Index">Trở về</a>
 </div>

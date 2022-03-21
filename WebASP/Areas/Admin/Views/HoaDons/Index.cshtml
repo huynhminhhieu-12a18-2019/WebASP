@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<WebASP.Models.HoaDon>
 
 @{
-    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Danh sách hóa đơn";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
 }
 
-<h1>Tất cả hóa đơn</h1>
+<h1>Danh sách hóa đơn</h1>
 
-<p>
-    <a asp-action="Create">Thêm mới hóa đơn</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -51,7 +48,7 @@
                 @Html.DisplayFor(modelItem => item.MAHD)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TaiKhoan.HoTen)
+                @Html.DisplayFor(modelItem => item.TaiKhoan.TaiKhoanId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NgayLap)
@@ -72,19 +69,22 @@
                 @Html.DisplayFor(modelItem => item.TongTien)
             </td>
             <td>
-                <a asp-controller="HoaDons" asp-route-id="@item.HoaDonId" asp-route-trang="index" asp-action="SuaTrangThai">
-                    @if (item.TrangThai == true)
+                <a asp-route-id="@item.HoaDonId" asp-route-trang="index" asp-area="Admin" asp-controller="HoaDons" asp-action="SuaTrangThai">
+                    @if (@item.TrangThai == 0)
                     {
-                        <button  type="submit" class="btn btn-success">True</button>
+                        <button class="btn btn-danger">Chưa duyệt</button>
                     }
-                    else
+                    @if (@item.TrangThai == 1)
                     {
-                        <button type="submit" class="btn btn-danger">False</button>
+                        <button class="btn btn-primary">Đã duyệt</button>
+                    }
+                    @if (@item.TrangThai == 2)
+                    {
+                        <button class="btn btn-success">Đã giao</button>
                     }
                 </a>
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.HoaDonId">Sửa</a> |
                 <a asp-action="Details" asp-route-id="@item.HoaDonId">Chi tiết</a> |
                 <a asp-action="Delete" asp-route-id="@item.HoaDonId">Xóa</a>
             </td>

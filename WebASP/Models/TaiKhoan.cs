@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,7 +21,11 @@ namespace WebASP.Models
         [DisplayName("Địa chỉ")]
         public string DChi { get; set; }
         [DisplayName("Ngày sinh")]
-        public DateTime NgSinh { get; set; }
+        public int NgSinh { get; set; }
+        [DisplayName("Tháng sinh")]
+        public int ThSinh { get; set; }
+        [DisplayName("Năm sinh")]
+        public int NamSinh { get; set; }
         public string Email { get; set; }
         [DisplayName("Ảnh")]
         public string Anh { get; set; }
@@ -36,5 +41,7 @@ namespace WebASP.Models
         public bool TrangThai { get; set; }
         public List<HoaDon> HoaDons { get; set; }
         public List<GioHang> GioHangs { get; set; }
+
+        public List<BinhLuan> BinhLuans { get; set; }
     }
 }

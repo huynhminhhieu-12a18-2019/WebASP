@@ -1,13 +1,14 @@
 ﻿@model WebASP.Models.HoaDon
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Xóa hóa đơn";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    ViewData["TaiKhoan"] = ViewBag.TaiKhoan;
 }
 
 <h1>Xóa hóa đơn</h1>
 
-<h3>Bạn có chắc muốn xóa?</h3>
+<h3>Bạn có chắc muốn xóa hóa đơn?</h3>
 <div>
     <hr />
     <dl class="row">

@@ -35,7 +35,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var hoaDon = await _context.HoaDons
                 .Include(h => h.TaiKhoan)
                 .FirstOrDefaultAsync(m => m.HoaDonId == id);
@@ -47,82 +47,7 @@ namespace WebASP.Areas.Admin.Controllers
             return View(hoaDon);
         }
 
-        // GET: Admin/HoaDons/Create
-        public IActionResult Create()
-        {
-            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoans, "TaiKhoanId", "TaiKhoanId");
-            return View();
-        }
-
-        // POST: Admin/HoaDons/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HoaDonId,MAHD,TaiKhoanId,NgayLap,ThanhToan,DChiGiaoHang,SDTGiaoHang,TenNguoiNhan,TongTien,TrangThai")] HoaDon hoaDon)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(hoaDon);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoans, "TaiKhoanId", "TaiKhoanId", hoaDon.TaiKhoanId);
-            return View(hoaDon);
-        }
-
-        // GET: Admin/HoaDons/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var hoaDon = await _context.HoaDons.FindAsync(id);
-            if (hoaDon == null)
-            {
-                return NotFound();
-            }
-            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoans, "TaiKhoanId", "TaiKhoanId", hoaDon.TaiKhoanId);
-            return View(hoaDon);
-        }
-
-        // POST: Admin/HoaDons/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HoaDonId,MAHD,TaiKhoanId,NgayLap,ThanhToan,DChiGiaoHang,SDTGiaoHang,TenNguoiNhan,TongTien,TrangThai")] HoaDon hoaDon)
-        {
-            if (id != hoaDon.HoaDonId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(hoaDon);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!HoaDonExists(hoaDon.HoaDonId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["TaiKhoanId"] = new SelectList(_context.TaiKhoans, "TaiKhoanId", "TaiKhoanId", hoaDon.TaiKhoanId);
-            return View(hoaDon);
-        }
+       
 
         // GET: Admin/HoaDons/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -131,7 +56,7 @@ namespace WebASP.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
             var hoaDon = await _context.HoaDons
                 .Include(h => h.TaiKhoan)
                 .FirstOrDefaultAsync(m => m.HoaDonId == id);
@@ -157,6 +82,44 @@ namespace WebASP.Areas.Admin.Controllers
         private bool HoaDonExists(int id)
         {
             return _context.HoaDons.Any(e => e.HoaDonId == id);
+        }
+        public IActionResult SuaTrangThai(int id, string trang)
+        {
+            var hoadon = _context.HoaDons.Find(id);
+            if (hoadon.TrangThai == 0)
+            {
+                hoadon.TrangThai = 1;
+            }
+            else if(hoadon.TrangThai == 1)
+            {
+                hoadon.TrangThai = 2;
+            }
+            _context.HoaDons.Update(hoadon);
+            _context.SaveChanges();
+            if (trang == "index")
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(HoaDonChuaDuyet));
+
+        }
+        public async Task<IActionResult> HoaDonChuaDuyet()
+        {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
+            var webASPContext = _context.HoaDons.Include(h => h.TaiKhoan).Where(hd => hd.TrangThai == 0);
+            return View(await webASPContext.ToListAsync());
+        }
+        public async Task<IActionResult> HoaDonDaDuyet()
+        {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
+            var webASPContext = _context.HoaDons.Include(h => h.TaiKhoan).Where(hd => hd.TrangThai == 1);
+            return View(await webASPContext.ToListAsync());
+        }
+        public async Task<IActionResult> HoaDonDaGiao()
+        {
+            ViewBag.TaiKhoan = HttpContext.Request.Cookies["HoTen"].ToString();
+            var webASPContext = _context.HoaDons.Include(h => h.TaiKhoan).Where(hd => hd.TrangThai == 2);
+            return View(await webASPContext.ToListAsync());
         }
     }
 }
